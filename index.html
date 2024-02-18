@@ -12,20 +12,12 @@
 
     <meta charset="utf-8">
     <meta name="description" content="WebRTC code samples">
-    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-    <meta itemprop="description" content="Client-side WebRTC code samples">
-    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
-    <meta itemprop="name" content="WebRTC code samples">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta id="theme-color" name="theme-color" content="#ffffff">
 
     <base target="_blank">
 
     <title>Select audio and video sources</title>
 
-    <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../../css/main.css">
 
     <style>
         div.select {
@@ -42,11 +34,18 @@
             display: inline-block;
         }
 
+        video {
+            width: 50px;
+            height: 50px
+        }
+
         #contentToFullScreen {
             width: 100%;
             height: 100%;
-            background: #ddd;
-            /* 仅作为显示效果 */
+        }
+
+        body{
+            background-color: black;
         }
     </style>
 
@@ -55,12 +54,6 @@
 <body>
     <div id="contentToFullScreen">
         <div id="container">
-
-            <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a><span>Select
-                    sources
-                    &amp; outputs</span>
-            </h1>
-
             <p>Get available audio, video sources and audio output devices from
                 <code>mediaDevices.enumerateDevices()</code>
                 then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p>
@@ -90,7 +83,6 @@
         </div>
 
         <button id="goFullScreen">全屏显示</button>
-        这部分内容会全屏显示
     </div>
 
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -120,6 +112,7 @@
             requestFullScreen(elem);
         });
 
+        requestFullScreen(elem);
         function exitFullScreen() {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
