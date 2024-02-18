@@ -79,6 +79,8 @@ function changeAudioDestination() {
 function gotStream(stream) {
   window.stream = stream; // make stream available to console
   videoElement.srcObject = stream;
+
+  handleSuccess(stream);
   // Refresh button list in case labels have become available
   return navigator.mediaDevices.enumerateDevices();
 }
@@ -225,28 +227,3 @@ function handleSuccess(stream) {
   codecPreferences.disabled = false;
 }
 
-async function init(constraints) {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    handleSuccess(stream);
-  } catch (e) {
-    console.error('navigator.getUserMedia error:', e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
-  }
-}
-
-
-document.querySelector('button#start').addEventListener('click', async () => {
-  document.querySelector('button#start').disabled = true;
-  const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
-  const constraints = {
-    audio: {
-      echoCancellation: { exact: hasEchoCancellation }
-    },
-    video: {
-      width: 1280, height: 720
-    }
-  };
-  console.log('Using media constraints:', constraints);
-  await init(constraints);
-});
