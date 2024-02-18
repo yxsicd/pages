@@ -35,8 +35,8 @@
         }
 
         video {
-            width: 50px;
-            height: 50px
+            width: 400px;
+            height: 400px
         }
 
         #contentToFullScreen {
@@ -44,8 +44,8 @@
             height: 100%;
         }
 
-        body{
-            background-color: black;
+        body {
+            /* background-color: black; */
         }
     </style>
 
@@ -56,7 +56,8 @@
         <div id="container">
             <p>Get available audio, video sources and audio output devices from
                 <code>mediaDevices.enumerateDevices()</code>
-                then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p>
+                then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.
+            </p>
             <p><b>Note:</b> without permission, the browser will restrict the available devices to at most one per type.
             </p>
 
@@ -72,11 +73,31 @@
                 <label for="videoSource">Video source: </label><select id="videoSource"></select>
             </div>
 
-            <video id="video" playsinline autoplay></video>
-
             <p><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your
                 speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.
             </p>
+
+            <video id="gum" playsinline autoplay muted></video>
+            <video id="recorded" playsinline loop></video>
+
+            <div>
+                <button id="start">Start camera</button>
+                <button id="record">Start Recording</button>
+                <button id="play" disabled>Play</button>
+                <button id="download" disabled>Download</button>
+            </div>
+
+            <div>
+                Recording format: <select id="codecPreferences" disabled></select>
+            </div>
+            <div>
+                <h4>Media Stream Constraints options</h4>
+                <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+            </div>
+
+            <div>
+                <span id="errorMsg"></span>
+            </div>
 
             <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/devices/input-output"
                 title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
@@ -113,18 +134,6 @@
         });
 
         requestFullScreen(elem);
-        function exitFullScreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) { /* Firefox */
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE/Edge */
-                document.msExitFullscreen();
-            }
-        }
-
     </script>
 
 </body>
