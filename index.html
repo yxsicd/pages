@@ -1,137 +1,30 @@
 <!DOCTYPE html>
-<!--
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
--->
-<html>
 
 <head>
+    <script src='https://cdn.babylonjs.com/babylon.js'></script>
+    <script type="module" src="./wc/rect3d.js"></script>
+    <script type="module" src="./demo_page/table_demo.js"></script>
+    <script type="module">
+        import { demo_init, demo_insert } from './wc/tabs.js';
 
-    <meta charset="utf-8">
-    <meta name="description" content="WebRTC code samples">
+        // 示例使用 demo_init
+        demo_init('tabs1');
 
-    <base target="_blank">
-
-    <title>Select audio and video sources</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
-
-    <style>
-        div.select {
-            display: inline-block;
-            margin: 0 0 1em 0;
+        window.demo_insert = function () {
+            demo_insert('tabs1')
         }
-
-        p.small {
-            font-size: 0.7em;
-        }
-
-        label {
-            width: 12em;
-            display: inline-block;
-        }
-
-        video {
-            width: 400px;
-            height: 400px
-        }
-
-        #contentToFullScreen {
-            width: 100%;
-            height: 100%;
-        }
-
-        body {
-            /* background-color: black; */
-        }
-    </style>
-
+    </script>
 </head>
 
 <body>
-    <div id="contentToFullScreen">
-        <div id="container">
-            <p>Get available audio, video sources and audio output devices from
-                <code>mediaDevices.enumerateDevices()</code>
-                then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.
-            </p>
-            <p><b>Note:</b> without permission, the browser will restrict the available devices to at most one per type.
-            </p>
 
-            <div class="select">
-                <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
-            </div>
+    <!-- 使用自定义元素 -->
+    <vscode-tabs tabsid="tabs1"></vscode-tabs>
 
-            <div class="select">
-                <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
-            </div>
-
-            <div class="select">
-                <label for="videoSource">Video source: </label><select id="videoSource"></select>
-            </div>
-
-            <p><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your
-                speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.
-            </p>
-
-            <video id="gum" playsinline autoplay muted></video>
-            <video id="recorded" playsinline loop></video>
-
-            <div>
-                <button id="start">Start camera</button>
-                <button id="record">Start Recording</button>
-                <button id="play" disabled>Play</button>
-                <button id="download" disabled>Download</button>
-            </div>
-
-            <div>
-                Recording format: <select id="codecPreferences" disabled></select>
-            </div>
-
-            <div>
-                <span id="errorMsg"></span>
-            </div>
-
-            <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/devices/input-output"
-                title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
-        </div>
-
-        <button id="goFullScreen">全屏显示</button>
-    </div>
-
-    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="js/main.js" async></script>
-
-    <script>
-
-        // 获取按钮和要全屏显示的元素
-        var btn = document.getElementById('goFullScreen');
-        var elem = document.getElementById('contentToFullScreen');
-
-        // 元素请求全屏的函数
-        function requestFullScreen(element) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.mozRequestFullScreen) { /* Firefox */
-                element.mozRequestFullScreen();
-            } else if (element.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                element.webkitRequestFullscreen();
-            } else if (element.msRequestFullscreen) { /* IE/Edge */
-                element.msRequestFullscreen();
-            }
-        }
-
-        // 监听按钮点击事件触发全屏
-        btn.addEventListener('click', function () {
-            requestFullScreen(elem);
-        });
-
-        requestFullScreen(elem);
-    </script>
-
+    <rect-3d></rect-3d>
+    <rect-3d></rect-3d>
+    <table-demo></table-demo>
 </body>
+
 
 </html>
