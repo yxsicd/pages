@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Babylon.js Physics Example</title>
+    <title>Babylon.js Basic Scene</title>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <script src="https://cdn.babylonjs.com/cannon.js"></script>
 </head>
 <body>
+    <a href="/index.html">home</a>
     <canvas id="renderCanvas" style="width: 100%; height: 100vh;"></canvas>
     <script>
         const canvas = document.getElementById('renderCanvas');
@@ -21,25 +21,22 @@
             // 光源
             const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
 
-            // 启用物理引擎
-            const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
-            const physicsPlugin = new BABYLON.CannonJSPlugin();
-            scene.enablePhysics(gravityVector, physicsPlugin);
-
             // 地面
             const ground = BABYLON.MeshBuilder.CreateGround('ground1', { width: 10, height: 10 }, scene);
-            const groundMaterial = new BABYLON.StandardMaterial('groundMat', scene);
-            groundMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
-            ground.material = groundMaterial;
-            ground.physicsImpostor = new BABYLON.PhysicsImpostor(ground, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 0.9 }, scene);
 
             // 立方体
             const box = BABYLON.MeshBuilder.CreateBox('box', { size: 2 }, scene);
-            box.position.y = 5;
-            const boxMaterial = new BABYLON.StandardMaterial('boxMat', scene);
-            boxMaterial.diffuseColor = new BABYLON.Color3(1, 0, 0);
-            box.material = boxMaterial;
-            box.physicsImpostor = new BABYLON.PhysicsImpostor(box, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, restitution: 0.9 }, scene);
+            box.position.y = 1;
+
+            // 材质
+            const material = new BABYLON.StandardMaterial('mat1', scene);
+            material.diffuseColor = new BABYLON.Color3(0, 0, 1); // 蓝色
+            box.material = material;
+
+            // 动画
+            scene.registerBeforeRender(function () {
+                box.rotation.y += 0.01;
+            });
 
             return scene;
         };

@@ -1,4 +1,4 @@
-import { LitElement, html, css, ebus } from '../wc/import.js';
+import { LitElement, html, css, ebus } from '../import.js';
 
 class bus_demo extends LitElement {
     static properties = {

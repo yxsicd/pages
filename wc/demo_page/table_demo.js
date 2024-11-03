@@ -1,5 +1,5 @@
-import { LitElement, html, css, ebus } from '../wc/import.js';
-import { } from '../wc/basic_table.js';
+import { LitElement, html, css, ebus } from '../import.js';
+import { } from '../basic_table.js';
 
 
 function init_table(table_id, row_count, column_count) {
