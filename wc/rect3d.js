@@ -1,5 +1,5 @@
 // src/Histogram3D.js
-import { LitElement, html, css } from './import.js';
+import { LitElement, html, css, ebus } from './import.js';
 
 
 export class init_element extends LitElement {
@@ -10,16 +10,26 @@ export class init_element extends LitElement {
     constructor() {
         super();
         this.data = [1, 6, 3, 11, 5, 6];
+
+        var that = this;
+        ebus.subscribe("rect3d.init", function (event_data) {
+            var init_data = event_data.detail;
+
+            that.data = init_data.data;
+            that.initBabylon();
+        });
+
+
     }
 
     static styles = css`
     :host {
-        width: 50vw;
-        height: 50vh;
+        width: 64vw;
+        height: 64vh;
     }
     canvas {
-        width: 50vw;
-        height: 50vh;
+        width: 64vw;
+        height: 64vw;
     }
 `;
 
@@ -36,15 +46,30 @@ export class init_element extends LitElement {
             scene.clearColor = new BABYLON.Color4(1, 1, 1, 1);
 
             // 相机
-            const camera = new BABYLON.ArcRotateCamera(
-                'camera',
-                Math.PI / 2,
-                Math.PI / 4,
-                20,
-                new BABYLON.Vector3(0, 0, 0),
+            // const camera = new BABYLON.ArcRotateCamera(
+            //     'camera',
+            //     Math.PI / 2,
+            //     Math.PI / 4,
+            //     20,
+            //     new BABYLON.Vector3(0, 0, 0),
+            //     scene
+            // );
+            // camera.attachControl(canvas, true);
+
+
+            const camera2 = new BABYLON.FreeCamera("FreeCamera",
+                new BABYLON.Vector3(0, 5, -10),
                 scene
             );
-            camera.attachControl(canvas, true);
+            camera2.setTarget(BABYLON.Vector3.Zero());
+            camera2.attachControl(canvas, true);
+            // 配置 WASD 键
+            // 默认情况下，FreeCamera 使用箭头键来移动。我们将替换这些键为 WASD。
+            camera2.keysUp = [87];    // W
+            camera2.keysDown = [83];  // S
+            camera2.keysLeft = [65];  // A
+            camera2.keysRight = [68]; // D
+
 
             // 光源
             const light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);

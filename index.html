@@ -3,7 +3,7 @@
 <head>
     <script src='https://cdn.babylonjs.com/babylon.js'></script>
     <script type="module" src="./wc/rect3d.js"></script>
-    <script type="module" src="./demo_page/table_demo.js"></script>
+    <script type="module" src="./wc/demo_page/demo.js"></script>
     <script type="module">
         import { demo_init, demo_insert } from './wc/tabs.js';
 
@@ -14,6 +14,7 @@
             demo_insert('tabs1')
         }
     </script>
+    <script type="module" src="./wc/pg.js"></script>
 </head>
 
 <body>
@@ -22,11 +23,8 @@
     <a href="./pages/babylon/physic_demo.html">physic_demo</a>
 
     <!-- 使用自定义元素 -->
-    <vscode-tabs tabsid="tabs1"></vscode-tabs>
-
-    <rect-3d></rect-3d>
-    <rect-3d></rect-3d>
-    <table-demo></table-demo>
+    <wc-tabs tabsid="tabs1"></wc-tabs>
+    <page-3d-demo></page-3d-demo>
 </body>
 
 

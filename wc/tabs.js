@@ -1,7 +1,7 @@
 import { LitElement, html, css } from './import.js';
 import { ebus } from './import.js';
 
-class VscodeTabs extends LitElement {
+class init_element extends LitElement {
     static properties = {
         tabsId: { type: String },
         tabList: { type: Array },
@@ -143,4 +143,4 @@ export function demo_insert(tabsId) {
     ebus.publish('tab.insert', insertData);
 }
 
-customElements.define('vscode-tabs', VscodeTabs);
+customElements.define('wc-tabs', init_element);

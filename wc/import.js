@@ -20,3 +20,5 @@ export const ebus = {
     subscribe: subscribe,
     unsubscribe: unsubscribe,
 }
+
+window.ebus = ebus;
