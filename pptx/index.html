@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPTX Generation Example</title>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+</head>
+
+<body>
+    <h1>PPTX Generation Example</h1>
+    <button onclick="createPPT()">Generate PPT</button>
+
+    <script>
+        function createPPT() {
+            // 创建一个新演示文稿
+            let pres = new PptxGenJS();
+
+            // 添加一个幻灯片
+            let slide = pres.addSlide();
+
+            // 添加标题文本
+            slide.addText('Hello, this is a title!', {
+                x: 1.5, // X 坐标 (英寸)
+                y: 1.0, // Y 坐标 (英寸)
+                fontSize: 24,
+                bold: true,
+                color: '0088CC',
+            });
+
+            // 添加普通文本
+            slide.addText('This is a simple example of using PptxGenJS to generate a PPT. 尹晓帅', {
+                x: 1.5,
+                y: 1.5,
+                fontSize: 23,
+                color: '000000',
+            });
+
+            // 添加图片（从 URL 加载）
+            slide.addImage({
+                x: 1.0,
+                y: 2.0,
+                w: 5.0, // 宽度 (英寸)
+                h: 3.0, // 高度 (英寸)
+                path: 'https://www.gstatic.com/webp/gallery3/2_webp_ll.png'
+            });
+
+            // 添加一个表格
+            let tableData = [
+                [
+                    { text: "Name", options: { bold: true } },
+                    { text: "Age", options: { bold: true } }
+                ],
+                ["Alice", "30"],
+                ["Bob", "25"],
+                ["Charlie", "35"]
+            ];
+            slide.addTable(tableData, {
+                x: 1.0,
+                y: 5.5,
+                w: 6.0,
+            });
+
+
+            // 添加一个幻灯片
+            let slide2 = pres.addSlide();
+            let dataChartAreaLine = [
+                {
+                    name: "Actual Sales",
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    values: [1500, 4600, 5156, 3167, 8510, 8009, 6006, 7855, 12102, 12789, 10123, 15121],
+                },
+                {
+                    name: "Projected Sales",
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    values: [1000, 2600, 3456, 4567, 5010, 6009, 7006, 8855, 9102, 10789, 11123, 12121],
+                },
+            ];
+
+            slide2.addChart(pres.ChartType.line, dataChartAreaLine, { x: 1, y: 1, w: 8, h: 4 });
+
+
+            // 保存 PPTX 文件
+            pres.writeFile({ fileName: 'SamplePresentation.pptx' });
+        }
+    </script>
+</body>
+
+</html>

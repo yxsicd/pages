@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Info to PPTX</title>
+    <script type="module">
+        import { html, css, LitElement } from 'https://cdn.jsdelivr.net/npm/lit@2.6.1/+esm';
+        import pptxgen from 'https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.es.min.js';
+
+        class ExpertInfoComponent extends LitElement {
+            static styles = css`
+        :host {
+          display: block;
+          font-family: Arial, sans-serif;
+          padding: 10px;
+        }
+        .expert-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+        .expert-card {
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          padding: 10px;
+          text-align: center;
+          width: 200px;
+        }
+        .expert-card img {
+          max-width: 100%;
+          border-radius: 50%;
+          height: 100px;
+          object-fit: cover;
+        }
+        .expert-card h3, .expert-card p {
+          margin: 5px 0;
+        }
+      `;
+
+            static properties = {
+                expertInfoList: { type: Array },
+            };
+
+            constructor() {
+                super();
+                this.expertInfoList = [
+                    {
+                        expertName: "Dr. Alice Johnson",
+                        expertResearchDirection: "Artificial Intelligence",
+                        title: "Professor",
+                        expertImageUrl: "https://via.placeholder.com/100",
+                    },
+                    {
+                        expertName: "Dr. Bob Smith",
+                        expertResearchDirection: "Quantum Computing",
+                        title: "Associate Professor",
+                        expertImageUrl: "https://via.placeholder.com/100",
+                    },
+                    // Add more experts here...
+                ];
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                this.generatePPTX();
+            }
+
+            generatePPTX() {
+                const pptx = new pptxgen();
+                const slide = pptx.addSlide();
+
+                this.expertInfoList.forEach((expert, index) => {
+                    const x = 1 + (index % 3) * 3.5; // Align horizontally (3 per row)
+                    const y = 1 + Math.floor(index / 3) * 3; // Align vertically
+                    slide.addText(
+                        `${expert.expertName}\n${expert.title}\n${expert.expertResearchDirection}`,
+                        { x, y, w: 3, h: 2, fontSize: 14, align: 'center' }
+                    );
+                    slide.addImage({
+                        path: expert.expertImageUrl,
+                        x: x + 0.5,
+                        y: y + 1,
+                        w: 2,
+                        h: 2,
+                    });
+                });
+
+                pptx.writeFile({ fileName: "ExpertInfo.pptx" });
+            }
+
+            render() {
+                return html`
+          <div class="expert-container">
+            ${this.expertInfoList.map(
+                    (expert) => html`
+                <div class="expert-card">
+                  <img src="${expert.expertImageUrl}" alt="${expert.expertName}" />
+                  <h3>${expert.expertName}</h3>
+                  <p>${expert.title}</p>
+                  <p>${expert.expertResearchDirection}</p>
+                </div>
+              `
+                )}
+          </div>
+        `;
+            }
+        }
+
+        customElements.define("expert-info-component", ExpertInfoComponent);
+    </script>
+</head>
+
+<body>
+    <expert-info-component></expert-info-component>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 import { PGlite } from 'https://cdn.jsdelivr.net/npm/@electric-sql/pglite/dist/index.js'
 
-// const db = new PGlite('idb://my-pgdata')
+// const db = new PGlite('idb://pgdb01')
 const db = new PGlite();
 
 async function init() {
